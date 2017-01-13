@@ -1,0 +1,88 @@
+<!--
+@license
+Copyright (c) 2017 Ars Nebula LLC.
+This code may be used under the terms found in LICENSE.md of this repository.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`<nebula-language>` is a custom element that compares the languages supported by the browser, to the languages supported by the application, and matches the preferred language.
+
+When localizing your application, you will prepare translations for a specific list of languages. The `supported` property needs to be set by the application with the set of language codes that the application supports.
+
+```html
+<nebula-language
+  supported='["en", "en-CA", "fr", "fr-CA"]'
+  lang="{{lang}}">
+</nebula-language>
+```
+
+The supported languages will be matched against the languages supported by the browser, and the `lang` property will be set with the first preferred match. If the browser does not support [Internationalization](http://caniuse.com/#feat=internationalization), or no matching language is found, the first supported language will be used as the default.
+
+The recommended use case is to have a single instance of `<nebula-language>` within the top-level application element, and then pass the ``lang`` value down the component hierarchy using property binding.
+
+@demo demo/index.html
+-->
+
+<script>
+  Polymer({
+    is: 'nebula-language',
+    hostAttributes: {
+      'hidden': true
+    },
+    properties: {
+      /**
+      * The set of languages supported by the application.
+      */
+      supported: {
+        type: Array
+      },
+      /**
+      * The preferred language supported by the application and the browser.
+      * If a supported application language cannot be matched to a supported browser language, the first supported language will be used as the default.
+      */ 
+      lang: {
+        type: String,
+        readOnly: true,
+        notify: true,
+        computed: '_computeLang(supported)'
+      }
+    },
+    /**
+    * Matches the set of application supported languages with languages supported by the browser and selects the preferred application language.
+    */
+    _computeLang(supported) {
+      if (!(supported && supported.length > 0)) return
+
+      // get the supported browser languages
+      var browserLang = navigator.language || navigator.browserLanguage || navigator.userLanguage || navigator.systemLanguage || supported[0]
+      var browserLangs = navigator.languages || [browserLang]
+
+      // convert languages into set for uniqueness and convert to lowercase
+      // if language is multi-part, add the base language code as fallback
+      var browserSet = new Set()
+      for(var lang of browserLangs) {
+        browserSet.add(lang.toLowerCase())
+        if (lang.indexOf('-') !== -1) {
+          browserSet.add(lang.substring(0, lang.indexOf('-')).toLowerCase())
+        }    
+      }
+
+      // convert supported languages into set for uniqueness and convert to lowercase
+      var supportedSet = new Set()
+      for (var lang of supported)  {
+        supportedSet.add(lang.toLowerCase())
+      }      
+
+      // iterate over browsers set (since this is the user preferred order)
+      // if supported has language then return first found as preferred
+      var selectedSet = new Set()
+      for (var lang of browserSet) {
+        if (supportedSet.has(lang)) {
+          return lang 
+        }
+      }
+    }
+  })
+</script>

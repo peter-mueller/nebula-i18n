@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>nebula-i18n test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <link rel="import" href="test-greeting.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <test-greeting></test-greeting>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('basic', function() {
+        var el
+        setup(function(done) {
+          el = fixture('basic')
+          setTimeout(function() {
+            done()
+          }, 1000)
+        })
+        test('language is english', function() {
+          assert.equal(el.lang, 'en')
+        })
+        test('resources are loaded', function() {
+          assert.isOk(el.resources)
+        })
+        test('greeting is hello', function() {
+          assert.equal(el.$t('greeting'), 'Hello')
+        })
+      })
+    </script>
+  </body>
+</html>

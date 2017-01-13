@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>nebula-i18n demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../nebula-i18n.html">
+    <link rel="import" href="demo-greeting.html">
+    <style is="custom-style" include="demo-pages-shared-styles">
+      demo-greeting {
+        margin-top: 8px;  
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Language</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <nebula-language
+            supported='["en", "fr", "de"]'
+            lang="{{lang}}">
+          </nebula-language>
+          <div>[[lang]]</div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Polyglot Behavior</h3>
+      <demo-snippet>
+        <template is="dom-bind" id="Demo">
+          <button onclick="greeting.set('lang', 'en')">English</button>
+          <button onclick="greeting.set('lang', 'fr')">French</button>
+          <button onclick="greeting.set('lang', 'de')">German</button>
+          <nebula-resources
+            file="locales"
+            path="."
+            resources="{{resources}}">
+          </nebula-resources>
+          <demo-greeting
+            id="greeting"
+            lang="en"
+            resources="[[resources]]">
+          </demo-greeting>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

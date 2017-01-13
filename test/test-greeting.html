@@ -1,0 +1,22 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../nebula-i18n.html">
+
+<dom-module id="test-greeting">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <nebula-language supported='["en"]' lang="{{lang}}"></nebula-language>
+    <nebula-resources path="." file="locales" resources="{{resources}}"></nebula-resources>
+  </template>
+  <script>
+    Polymer({
+      is: 'test-greeting',
+      behaviors: [
+        Nebula.PolyglotBehavior
+      ]
+    })
+  </script>
+</dom-module>

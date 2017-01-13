@@ -1,0 +1,97 @@
+<!--
+@license
+Copyright (c) 2016 Ars Nebula LLC. All rights reserved.
+-->
+
+<script src="../polyglot/build/polyglot.min.js"></script>
+
+<script>
+(function() {
+  window.Nebula = window.Nebula || {}
+
+  /**
+  * `Nebula.PolyglotBehavior` extends an element to support localization using the [Airbnb Polyglot](http://airbnb.io/polyglot.js/) library.
+  *
+  * ```html
+  * <dom-module id="my-element">
+  *   <template>
+  *     <div>[[$t('greeting')]]</div>
+  *   </template>
+  *   <script>
+  *     Polymer({
+  *       is: 'my-element',
+  *       behaviors: [
+  *         Nebula.PolyglotBehavior
+  *       ],
+  *       properties: {
+  *         lang: {
+  *           value: 'en'
+  *         },
+  *         resources: function() {
+  *           en: {
+  *             greeting: 'Hello'
+  *           }
+  *         }
+  *       }
+  *     })
+  *   &lt;/script>
+  * </dom-module>
+  * ```
+  *
+  * For re-usable elements, the recommended use case is to provide values for the `lang` and `resources` properties in a default language, and allow parent elements to pass down values for alternate languages and resource translations.
+  *
+  * For application elements, an alternative is to initialize the language and resources in the top-level application element, and pass the `lang` and `resources` down the component hierarchy through property bindings.
+  * 
+  * <b><i>For additional information on using variables and supporting pluralization in resources, please see the [Polyglot API](http://airbnb.io/polyglot.js/) documentation.</i></b>
+  *
+  * @polymerBehavior
+  * @demo demo/index.html
+  */
+  Nebula.PolyglotBehavior = {
+    properties: {
+      /**
+      * The language code (BCP47) of the element.
+      */
+      lang: {
+        type: String,
+        reflectToAttribute: true,
+        notify: true
+      },
+      /**
+      * A collection of string resources to support localization (grouped by language code).
+      */
+      resources: {
+        type: Object,
+        notify: true
+      },
+      /**
+      * Gets a localized string resource for the specified key.
+      * Options can be provided for variable substituion and pluralization (see Polyglot documentation).
+      * If no resource is found, it returns the key.
+      */
+      $t: {
+        type: Function,
+        notify: true,
+        computed: '_computeTranslate(lang, resources)'
+      }
+    },
+    /**
+    * Generates a computed binding function for getting localized resources.
+    */
+    _computeTranslate(lang, resources) {
+      console.log('computeTranslate', lang, resources)
+      if (lang && resources && resources[lang]) {
+        var polyglot = new Polyglot({
+          phrases: resources[lang]
+        })
+        polyglot.locale(lang)
+        return polyglot.t.bind(polyglot)
+      } else {
+        return function(key) {
+          return key
+        }
+      }
+    }
+  }
+}())
+</script>

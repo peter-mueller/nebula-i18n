@@ -1,0 +1,35 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../nebula-i18n.html">
+
+<dom-module id="demo-greeting">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div>[[$t('greeting')]]</div>
+  </template>
+  <script>
+    Polymer({
+      is: 'demo-greeting',
+      behaviors: [
+        Nebula.PolyglotBehavior
+      ],
+      properties: {
+        lang: {
+          value: 'en'
+        },
+        resources: {
+          value: function() {
+            return {
+              en: {
+                greeting: 'Hello'
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</dom-module>

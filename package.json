@@ -1,0 +1,33 @@
+{
+  "name": "nebula-i18n",
+  "version": "1.0.0",
+  "description": "Web components to support i18n localization.",
+  "private": true,
+  "license": "ISC",
+  "author": "Chris Beckett <chrisb@arsnebula.com>",
+  "homepage": "https://github.com/arsnebula/nebula-i18n",
+  "bugs": {
+    "url": "https://github.com/arsnebula/nebula-i18n/issues",
+    "email": "support@arsnebula.com"
+  },
+  "repository": "arsnebula/nebula-i18n",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "i18n"
+  ],
+  "scripts": {
+    "test": "wct",
+    "start": "browser-sync start -c bsconfig.js"
+  },
+  "standard": {
+    "globals": [
+      "Polymer"
+    ]
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.6",
+    "web-component-tester": "^5.0.0"
+  },
+  "dependencies": {}
+}
