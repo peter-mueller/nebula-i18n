@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>nebula-resources</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../fetch/fetch.js"></script>
+    <script src="../../core.js/client/shim.js"></script>
+    <link rel="import" href="../nebula-resources.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <nebula-resources></nebula-resources>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('basic', function() {
+        var el
+        setup(function() {
+          el = fixture('basic')
+        })
+        test('element is created', function() {
+          assert.equal(el.is, 'nebula-resources')
+        })
+        test('resources are loaded', function(done) {
+          el.addEventListener('loaded', function(e) {
+            assert.equal(el.resources, e.detail)
+            done()
+          })
+          el.addEventListener('error', function(e) {
+            assert.fail(e.detail, 'Resource data')
+            done()
+          })
+          el.file = "locales"
+        })
+      })
+    </script>
+  </body>
+</html>

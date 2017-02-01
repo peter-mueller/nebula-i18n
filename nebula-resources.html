@@ -29,11 +29,23 @@ Phrases should be grouped beneath the BCP47 language code. A resource file can c
 
 Localization strings can include variables, and support pluralization. <b><i>For additional information on using variables and supporting pluralization in resources, please see the [Polyglot API](http://airbnb.io/polyglot.js/) documentation.</i></b>
 
+> Warning: This element utilizes the browser [Fetch API](https://fetch.spec.whatwg.org/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Fetch Polyfill](https://github.com/github/fetch).
+
+> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
+
 @demo demo/index.html
 -->
 
 <script>
   Polymer({
+    /**
+    * Event triggered when resources have completed loading.
+    * @event loaded
+    */
+    /**
+    * Event triggered when an error occurs loading resources.
+    * @event error
+    */
     is: 'nebula-resources',
     hostAttributes: {
       'hidden': true
@@ -68,7 +80,7 @@ Localization strings can include variables, and support pluralization. <b><i>For
     /**
     * Fetches the resource file from the server and sets the <b>resources</b> property with the contents.
     */
-    _fetch(file, path) {
+    _fetch: function(file, path) {
       if (!(file && path)) return
 
       if (!path.endsWith('/')) path = path + '/'

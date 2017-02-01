@@ -1,6 +1,6 @@
 {
   "name": "nebula-i18n",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web components to support i18n localization.",
   "private": true,
   "license": "ISC",
@@ -14,10 +14,13 @@
   "keywords": [
     "polymer",
     "web-components",
-    "i18n"
+    "i18n",
+    "polyglot",
+    "localization"
   ],
   "scripts": {
-    "test": "wct",
+    "test:local": "wct --plugin local",
+    "test:sauce": "wct --plugin sauce --sauce-username=arsnebula --job-name=nebula-i18n",
     "start": "browser-sync start -c bsconfig.js"
   },
   "standard": {

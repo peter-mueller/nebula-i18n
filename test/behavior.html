@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>nebula-polyglot-behavior</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../core.js/client/shim.js"></script>
+    <link rel="import" href="test-element.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <test-element></test-element>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('basic', function() {
+        var el
+        setup(function() {
+          el = fixture('basic')
+          el.resources = {
+            en: {greeting: 'Hello'},
+            fr: {greeting: 'Bonjour'}
+          }
+        })
+        test('element is created', function() {
+          assert.equal(el.is, 'test-element')
+        })
+        test('translation is english', function() {
+          el.lang = 'en'
+          assert.equal(el.$t('greeting'), 'Hello')
+        })
+        test('translation is french', function() {
+          el.lang = 'fr'
+          assert.equal(el.$t('greeting'), 'Bonjour')
+        })
+      })
+    </script>
+  </body>
+</html>

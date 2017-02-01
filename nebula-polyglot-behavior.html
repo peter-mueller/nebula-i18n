@@ -3,7 +3,8 @@
 Copyright (c) 2016 Ars Nebula LLC. All rights reserved.
 -->
 
-<script src="../polyglot/build/polyglot.min.js"></script>
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="polyglot.html">
 
 <script>
 (function() {
@@ -78,8 +79,7 @@ Copyright (c) 2016 Ars Nebula LLC. All rights reserved.
     /**
     * Generates a computed binding function for getting localized resources.
     */
-    _computeTranslate(lang, resources) {
-      console.log('computeTranslate', lang, resources)
+    _computeTranslate: function(lang, resources) {
       if (lang && resources && resources[lang]) {
         var polyglot = new Polyglot({
           phrases: resources[lang]

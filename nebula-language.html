@@ -22,6 +22,8 @@ The supported languages will be matched against the languages supported by the b
 
 The recommended use case is to have a single instance of `<nebula-language>` within the top-level application element, and then pass the ``lang`` value down the component hierarchy using property binding.
 
+> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
+
 @demo demo/index.html
 -->
 
@@ -52,7 +54,7 @@ The recommended use case is to have a single instance of `<nebula-language>` wit
     /**
     * Matches the set of application supported languages with languages supported by the browser and selects the preferred application language.
     */
-    _computeLang(supported) {
+    _computeLang: function(supported) {
       if (!(supported && supported.length > 0)) return
 
       // get the supported browser languages
@@ -61,28 +63,30 @@ The recommended use case is to have a single instance of `<nebula-language>` wit
 
       // convert languages into set for uniqueness and convert to lowercase
       // if language is multi-part, add the base language code as fallback
-      var browserSet = new Set()
-      for(var lang of browserLangs) {
-        browserSet.add(lang.toLowerCase())
+      var browserSet = []
+      for (var i = 0; i < browserLangs.length; i++) {
+        var lang = browserLangs[i].toLowerCase()
+        if (!browserSet.includes(lang)) browserSet.push(lang)
         if (lang.indexOf('-') !== -1) {
-          browserSet.add(lang.substring(0, lang.indexOf('-')).toLowerCase())
-        }    
+          var baseLang = lang.substring(0, lang.indexOf('-'))
+          if (!browserSet.includes(baseLang)) browserSet.push(baseLang)
+        }         
       }
 
       // convert supported languages into set for uniqueness and convert to lowercase
-      var supportedSet = new Set()
-      for (var lang of supported)  {
-        supportedSet.add(lang.toLowerCase())
+      var supportedSet = []
+      for (var i = 0; i < supported.length; i++) {
+        var lang = supported[i].toLowerCase()
+        if (!supportedSet.includes(lang)) supportedSet.push(lang)
       }      
 
       // iterate over browsers set (since this is the user preferred order)
       // if supported has language then return first found as preferred
-      var selectedSet = new Set()
-      for (var lang of browserSet) {
-        if (supportedSet.has(lang)) {
-          return lang 
-        }
-      }
+      var selectedSet = []
+      for (var i = 0; i < browserSet.length; i++) {
+        var lang = browserSet[i]
+        if (supportedSet.includes(lang)) return lang
+      } 
     }
   })
 </script>

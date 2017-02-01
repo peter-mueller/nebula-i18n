@@ -15,7 +15,9 @@
   "keywords": [
     "polymer",
     "web-components",
-    "i18n"
+    "i18n",
+    "polyglot",
+    "localization"
   ],
   "main": "nebula-i18n.html",
   "dependencies": {
@@ -25,7 +27,9 @@
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "web-component-tester": "Polymer/web-component-tester#^5.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "fetch": "github/fetch#^2.0.2",
+    "core.js": "zloirock/core-js#^2.4.1"
   }
 }

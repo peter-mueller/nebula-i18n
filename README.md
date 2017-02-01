@@ -3,6 +3,10 @@
 
 A set of web components to support i18n localization using [Airbnb Polyglot](http://airbnb.io/polyglot.js/). Components are included to match browser and application supported languages, load localized string resources, and integrate reactive string translations in your application.
 
+> Warning: This element utilizes the browser [Fetch API](https://fetch.spec.whatwg.org/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Fetch Polyfill](https://github.com/github/fetch).
+
+> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
+
 ## Installation
 
 ```
