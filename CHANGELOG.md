@@ -1,5 +1,10 @@
 # Change Log
 
+## [v1.0.2](https://github.com/arsnebula/nebula-i18n/releases/tag/v1.0.2) (2017-03-01)
+
+- Changed test configuration to support Sauce Labs integration.
+- Refactored to minimize ES2015 dependency to Promise polyfill.
+
 ## [v1.0.1](https://github.com/arsnebula/nebula-i18n/releases/tag/v1.0.1) (2017-01-13)
 
 - Changed test configuration to include IE/Edge and ES5 compatability.

@@ -29,10 +29,6 @@ Phrases should be grouped beneath the BCP47 language code. A resource file can c
 
 Localization strings can include variables, and support pluralization. <b><i>For additional information on using variables and supporting pluralization in resources, please see the [Polyglot API](http://airbnb.io/polyglot.js/) documentation.</i></b>
 
-> Warning: This element utilizes the browser [Fetch API](https://fetch.spec.whatwg.org/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Fetch Polyfill](https://github.com/github/fetch).
-
-> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
-
 @demo demo/index.html
 -->
 
@@ -83,8 +79,8 @@ Localization strings can include variables, and support pluralization. <b><i>For
     _fetch: function(file, path) {
       if (!(file && path)) return
 
-      if (!path.endsWith('/')) path = path + '/'
-      if (!file.endsWith('.json')) file = file + '.json'
+      if (!/\/$/ig.test(path)) path = path + '/'
+      if (!/.json$/ig.test(file)) file = file + '.json'
       var url = this.resolveUrl(path + file)
 
       fetch(url)

@@ -22,8 +22,6 @@ The supported languages will be matched against the languages supported by the b
 
 The recommended use case is to have a single instance of `<nebula-language>` within the top-level application element, and then pass the ``lang`` value down the component hierarchy using property binding.
 
-> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
-
 @demo demo/index.html
 -->
 
@@ -66,10 +64,10 @@ The recommended use case is to have a single instance of `<nebula-language>` wit
       var browserSet = []
       for (var i = 0; i < browserLangs.length; i++) {
         var lang = browserLangs[i].toLowerCase()
-        if (!browserSet.includes(lang)) browserSet.push(lang)
+        if (browserSet.indexOf(lang) === -1) browserSet.push(lang)
         if (lang.indexOf('-') !== -1) {
           var baseLang = lang.substring(0, lang.indexOf('-'))
-          if (!browserSet.includes(baseLang)) browserSet.push(baseLang)
+          if (browserSet.indexOf(baseLang) === -1) browserSet.push(baseLang)
         }         
       }
 
@@ -77,7 +75,7 @@ The recommended use case is to have a single instance of `<nebula-language>` wit
       var supportedSet = []
       for (var i = 0; i < supported.length; i++) {
         var lang = supported[i].toLowerCase()
-        if (!supportedSet.includes(lang)) supportedSet.push(lang)
+        if (supportedSet.indexOf(lang) === -1) supportedSet.push(lang)
       }      
 
       // iterate over browsers set (since this is the user preferred order)
@@ -85,7 +83,7 @@ The recommended use case is to have a single instance of `<nebula-language>` wit
       var selectedSet = []
       for (var i = 0; i < browserSet.length; i++) {
         var lang = browserSet[i]
-        if (supportedSet.includes(lang)) return lang
+        if (supportedSet.indexOf(lang) !== -1) return lang
       } 
     }
   })

@@ -1,8 +1,14 @@
+var pkg = require('./package.json');
+var argv = require('minimist')(process.argv.slice(2));
+var build = pkg.name + ' v' + pkg.version + ' (' + Math.round(new Date().getTime() / 1000) + ')'
+
+console.log('BUILD: ' + build)
+
 module.exports = {
   verbose: false,
   expanded: true,
-  persistent: false,
-  color: true,
+  persistent: argv.persistent || false,
+  simpleOutput: true,
   plugins: {
     local: {
       disabled: true,
@@ -10,13 +16,15 @@ module.exports = {
     },
     sauce: {
       disabled: true,
+      name: pkg.name,
+      build: build,
       browsers: [{
         browserName: 'chrome',
-        platform: 'Linux',
+        platform: 'Windows 10',
         version: 'latest-2'
       }, {
         browserName: 'firefox',
-        platform: 'Linux',
+        platform: 'Windows 10',
         version: 'latest-2'
       }, {
         browserName: 'microsoftedge',
@@ -24,7 +32,7 @@ module.exports = {
         version: '14'
       }, {
         browserName: 'internet explorer',
-        platform: 'Windows 10',
+        platform: 'Windows 8.1',
         version: '11'
       }, {
         browserName: 'safari',

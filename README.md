@@ -1,15 +1,19 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://beta.webcomponents.org/element/arsnebula/nebula-i18n)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/arsnebula/nebula-i18n)
+[![Gitter chat](https://badges.gitter.im/org.png)](https://gitter.im/arsnebula/webcomponents)
+
+[![Build Status](https://saucelabs.com/browser-matrix/arsnebula.svg)](https://saucelabs.com/beta/builds/9fc8b12d81be4e45842b427a08bde662)
+
 # \<nebula-i18n\>
 
 A set of web components to support i18n localization using [Airbnb Polyglot](http://airbnb.io/polyglot.js/). Components are included to match browser and application supported languages, load localized string resources, and integrate reactive string translations in your application.
 
 > Warning: This element utilizes the browser [Fetch API](https://fetch.spec.whatwg.org/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Fetch Polyfill](https://github.com/github/fetch).
 
-> Warning: This element utilizes features of [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) which may not be supported by all browsers. To ensure support by all browsers, consider using the [Core-js Polyfill](https://github.com/zloirock/core-js).
+> Warning: This element requires browser support for [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). To ensure support by all browsers, use a promise polyfill such as [PolymerLabs Promise Polyfill](https://github.com/PolymerLabs/promise-polyfill).
 
 ## Installation
 
-```
+```sh
 $ bower install arsnebula/nebula-i18n
 ```
 
@@ -17,8 +21,8 @@ $ bower install arsnebula/nebula-i18n
 
 Import the package elements:
 
-```
-<link rel="import" href="bower_components/nebula-i18n/nebula-i18n.html"> 
+```html
+<link rel="import" href="/bower_components/nebula-i18n/nebula-i18n.html"> 
 ```
 
 Add and configure a `<nebula-language>` element to compare the browsers supported languages to application supported languages, and select a preferred language. *This will commonly be done once in your top-level application element.*

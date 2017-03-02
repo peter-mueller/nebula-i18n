@@ -1,6 +1,6 @@
 {
   "name": "nebula-i18n",
-  "description": "Web components to support i18n localization.",
+  "description": "i18n localization using AirBnb Polyglot.",
   "license": "ISC",
   "authors": [
     "Chris Beckett <chrisb@arsnebula.com>"
@@ -30,6 +30,7 @@
     "web-component-tester": "Polymer/web-component-tester#^5.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "fetch": "github/fetch#^2.0.2",
-    "core.js": "zloirock/core-js#^2.4.1"
+    "core.js": "zloirock/core-js#^2.4.1",
+    "promise-polyfill": "PolymerLabs/promise-polyfill#^1.0.1"
   }
 }
