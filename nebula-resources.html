@@ -1,99 +1,86 @@
-<!--
-@license
-Copyright (c) 2017 Ars Nebula LLC.
-This code may be used under the terms found in LICENSE.md of this repository.
--->
-
-<link rel="import" href="../polymer/polymer.html">
-
-<!--
-`<nebula-resources>` is a custom element to load resource files for use with localization. It uses the browser [Fetch API](http://caniuse.com/#feat=fetch) to read a **JSON** file containing string resources.
-
-Phrases should be grouped beneath the BCP47 language code. A resource file can contain one or more languages according to your localization design. A common use case is to have a separate resources file for each language the application supports, and load the appropriate language based on browser settings or user preference.
-
-<b>Sample Resource File</b>
-
-```json
-{
-  "en": {
-    "greeting": "Hello"
-  },
-  "fr": {
-    "greeting": "Bonjour"
-  },
-  "de": {
-    "greeting": "Hallo"
-  }
-}
-```
-
-Localization strings can include variables, and support pluralization. <b><i>For additional information on using variables and supporting pluralization in resources, please see the [Polyglot API](http://airbnb.io/polyglot.js/) documentation.</i></b>
-
-@demo demo/index.html
--->
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../nebula-element-mixin/nebula-element-mixin.html">
 
 <script>
-  Polymer({
+(function() {
+  'use strict'
+
+  // symbols for private members
+  const fetchResources = Symbol()
+
+  // symbols for protected members
+  const observe = Symbol.for('Nebula.ElementMixin.observe')
+  const fire = Symbol.for('Nebula.ElementMixin.fire')
+
+  class NebulaResources extends Nebula.ElementMixin(Polymer.Element) {
+
     /**
-    * Event triggered when resources have completed loading.
-    * @event loaded
-    */
+     * Gets the custom element name.
+     * @type {string}
+     */
+    static get is() { return 'nebula-resources' }
+
     /**
-    * Event triggered when an error occurs loading resources.
-    * @event error
-    */
-    is: 'nebula-resources',
-    hostAttributes: {
-      'hidden': true
-    },
-    properties: {
-      /**
-      * The name of the JSON file to retrieve from the specified path.
-      * The **JSON** file extension (.json) will be added automatically if not provided.
-      */
-      file: {
-        type: String
-      },
-      /**
-      * A relative or absolute path to the server path containing the resource file.
-      */
-      path: {
-        type: String,
-        value: '.'
-      },
-      /**
-      * The contents of the resource file.
-      */
-      resources: {
-        type: Object,
-        readOnly: true,
-        notify: true
+     * Gets the property definitions for data binding.
+     * @type {Object}
+     * @property {string} file - The name of the JSON file (with or without extension) to retrieve from the specified path.
+     * @property {string} path - The data to validate against the constraints.
+     * @property {Object} resources - The contents of the resource file.
+     */
+    static get properties() {
+      return {
+        file: {
+          type: String
+        },
+        path: {
+          type: String,
+          value: '.'
+        },
+        resources: {
+          type: Object,
+          readOnly: true,
+          notify: true
+        }
       }
-    },
-    observers: [
-      '_fetch(file, path)'
-    ],
+    }
+
     /**
-    * Fetches the resource file from the server and sets the <b>resources</b> property with the contents.
-    */
-    _fetch: function(file, path) {
+     * Lifecycle callback invoked when a new element instance is created.
+     */
+    constructor() {
+      super()
+      this[observe]('file, path', this[fetchResources])
+    }
+
+    /**
+     * Lifecycle callback handler triggered when data-binding initialization is complete.
+     */
+    ready() {
+      super.ready();
+      this.setAttribute('hidden', '')
+    }
+
+    /**
+     * Fetches the resource file from the server and sets the <b>resources</b> property with the contents.
+     */
+    [fetchResources](file, path) {
       if (!(file && path)) return
 
       if (!/\/$/ig.test(path)) path = path + '/'
       if (!/.json$/ig.test(file)) file = file + '.json'
-      var url = this.resolveUrl(path + file)
+      const url = this.resolveUrl(path + file)
 
-      fetch(url)
-      .then(function(response) {
+      fetch(url).then((response) => {
         return response.json()
-      }.bind(this))
-      .then(function(resources) {
+      }).then((resources) => {
         this._setResources(resources)
-        this.fire('loaded', resources, {bubbles: false})
-      }.bind(this))
-      .catch(function(error) {
-        this.fire('error', error, {bubbles: false})
-      }.bind(this))
+        this[fire]('loaded', resources)
+      }).catch((error) => {
+        this[fire]('error', error)
+      })
     }
-  })
+  }
+
+  customElements.define(NebulaResources.is, NebulaResources)
+}())
 </script>

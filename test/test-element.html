@@ -1,11 +1,14 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../nebula-polyglot-behavior.html">
 
 <script>
-  Polymer({
-    is: 'test-element',
-    behaviors: [
-      Nebula.PolyglotBehavior
-    ]
-  })
+(function() {
+  'use strict'
+
+  class TestElement extends Nebula.PolyglotBehavior(Polymer.Element) {
+    static get is() { return 'test-element' }
+  }
+
+  customElements.define(TestElement.is, TestElement)
+}())
 </script>

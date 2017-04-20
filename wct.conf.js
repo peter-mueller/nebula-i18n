@@ -1,18 +1,18 @@
-var pkg = require('./package.json');
-var argv = require('minimist')(process.argv.slice(2));
-var build = pkg.name + ' v' + pkg.version + ' (' + Math.round(new Date().getTime() / 1000) + ')'
+const pkg = require('./package.json');
+const build = `${pkg.name} v${pkg.version} (${Math.round(new Date().getTime() / 1000)})`
+const persistent = process.argv.includes('--persistent')
 
-console.log('BUILD: ' + build)
+console.log(`BUILD: ${build}`)
 
 module.exports = {
   verbose: false,
   expanded: true,
-  persistent: argv.persistent || false,
+  persistent: persistent,
   simpleOutput: true,
   plugins: {
     local: {
       disabled: true,
-      browsers: ['chrome', 'firefox', 'ie']
+      browsers: ['chrome', 'firefox']
     },
     sauce: {
       disabled: true,
@@ -21,27 +21,19 @@ module.exports = {
       browsers: [{
         browserName: 'chrome',
         platform: 'Windows 10',
-        version: 'latest-2'
+        version: 'latest'
       }, {
         browserName: 'firefox',
+        platform: 'Linux',
+        version: 'latest'
+      }, {
+        browserName: 'MicrosoftEdge',
         platform: 'Windows 10',
-        version: 'latest-2'
-      }, {
-        browserName: 'microsoftedge',
-        platform: 'Windows 10',
-        version: '14'
-      }, {
-        browserName: 'internet explorer',
-        platform: 'Windows 8.1',
-        version: '11'
-      }, {
+        version: 'latest'
+      },{
         browserName: 'safari',
         platform: 'macOS 10.12',
-        version: '10'
-      }, {
-        browserName: 'safari',
-        platform: 'OS X 10.11',
-        version: '9'
+        version: 'latest'
       }]
     }
   }

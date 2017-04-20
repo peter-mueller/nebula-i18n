@@ -1,5 +1,9 @@
 # Change Log
 
+## [v2.0.0](https://github.com/arsnebula/nebula-i18n/releases/tag/v2.0.0) (2017-04-20)
+
+- Upgraded to Polymer v2 ES2015 class-style elements.
+
 ## [v1.0.2](https://github.com/arsnebula/nebula-i18n/releases/tag/v1.0.2) (2017-03-01)
 
 - Changed test configuration to support Sauce Labs integration.

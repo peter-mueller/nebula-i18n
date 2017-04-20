@@ -5,7 +5,7 @@
     <title>nebula-polyglot-behavior</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <link rel="import" href="test-element.html">
   </head>
@@ -27,16 +27,22 @@
             fr: {greeting: 'Bonjour'}
           }
         })
-        test('element is created', function() {
-          assert.equal(el.is, 'test-element')
+        test('element is upgraded', function() {
+          assert.equal(el.constructor.is, 'test-element')
         })
-        test('translation is english', function() {
+        test('translation is english', function(done) {
           el.lang = 'en'
-          assert.equal(el.$t('greeting'), 'Hello')
+          flush(() => {
+            assert.equal(el.$t('greeting'), 'Hello')
+            done()
+          })
         })
-        test('translation is french', function() {
+        test('translation is french', function(done) {
           el.lang = 'fr'
-          assert.equal(el.$t('greeting'), 'Bonjour')
+          flush(() => {
+            assert.equal(el.$t('greeting'), 'Bonjour')
+            done()
+          })
         })
       })
     </script>

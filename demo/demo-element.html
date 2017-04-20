@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../nebula-i18n.html">
+
+<dom-module id="demo-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div>[[$t('greeting')]]</div>
+  </template>
+  <script>
+  (function() {
+    'use strict'
+    class DemoElement extends Nebula.PolyglotBehavior(Polymer.Element) {
+      static get is() { return 'demo-element' }
+    }
+    customElements.define(DemoElement.is, DemoElement)
+  }())
+  </script>
+</dom-module>

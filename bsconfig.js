@@ -5,5 +5,6 @@ module.exports = {
   files: '**/*.html',
   server: {
     baseDir: ['.', 'bower_components']
-  }
+  },
+  startPath: 'demo/index.html'
 }
