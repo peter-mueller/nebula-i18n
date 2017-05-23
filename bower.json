@@ -25,20 +25,18 @@
   ],
   "main": "nebula-i18n.html",
   "pages": {
-    "<nebula-language>": "docs/nebula-language.md",
-    "<nebula-resources>": "docs/nebula-resources.md",
     "Nebula.PolyglotBehavior": "docs/nebula-polyglot-behavior.md"
   },
   "demos": {
     "Demo": "demo/index.html"
   },
   "dependencies": {
-    "polymer": "Polymer/polymer#>=2.0.0-rc.1 <3.0",
+    "polymer": "Polymer/polymer#^2.0.0",
     "nebula-element-mixin": "arsnebula/nebula-element-mixin#^2.0.0",
     "polyglot": "airbnb/polyglot.js#^2.2.2"
   },
   "devDependencies": {
-    "web-component-tester": "polymer/web-component-tester#>=6.0.0 || 6.0.0-prerelease.5",
+    "web-component-tester": "polymer/web-component-tester#^6.0.0",
     "fetch": "github/fetch#^2.0.2"
   }
 }

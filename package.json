@@ -1,6 +1,6 @@
 {
   "name": "nebula-i18n",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "i18n localization using AirBnb Polyglot.",
   "private": true,
   "license": "ISC",
@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "browser-sync": "latest",
-    "web-component-tester": "^6.0.0 || 6.0.0-prerelease.5"
+    "web-component-tester": "^6.0.0"
   }
 }

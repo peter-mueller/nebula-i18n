@@ -1,5 +1,9 @@
 # Change Log
 
+## [v2.0.1](https://github.com/arsnebula/nebula-i18n/releases/tag/v2.0.1) (2017-05-23)
+
+- Removed manual documentation and updated inline comments for API document generation.
+
 ## [v2.0.0](https://github.com/arsnebula/nebula-i18n/releases/tag/v2.0.0) (2017-04-20)
 
 - Upgraded to Polymer v2 ES2015 class-style elements.

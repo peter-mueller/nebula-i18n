@@ -1,6 +1,24 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../nebula-element-mixin/nebula-element-mixin.html">
 
+<!--
+`<nebula-language>` is a custom element that compares the languages supported by the browser, to the languages supported by the application, and matches the preferred language.
+
+When localizing your application, you will prepare translations for a specific list of languages. The `supported` property needs to be set by the application with the set of language codes that the application supports.
+
+## Usage
+
+```html
+<nebula-language
+  supported='["en", "en-CA", "fr", "fr-CA"]'
+  lang="{{lang}}">
+</nebula-language>
+```
+
+The supported languages will be matched against the languages supported by the browser, and the `lang` property will be set with the first preferred match. If the browser does not support [Internationalization](http://caniuse.com/#feat=internationalization), or no matching language is found, the first supported language will be used as the default.
+
+The recommended use case is to have a single instance of `<nebula-language>` within the top-level application element, and then pass the ``lang`` value down the component hierarchy using property binding.
+-->
 <script>
 (function() {
   'use strict'
@@ -11,28 +29,34 @@
   // symbols for protected members
   const compute = Symbol.for('Nebula.ElementMixin.compute')
 
-  /**
-   * Determine the preferred application language based on browser support.
-   */
   class NebulaLanguage extends Nebula.ElementMixin(Polymer.Element) {
 
     /**
-     * Gets the custom element name.
-     * @type {string}
+     * Gets the custom element tag name.
+     * @protected
+     * @ignore
      */
     static get is() { return 'nebula-language' }
 
     /**
-     * Gets the property definitions for data binding.
-     * @type {Object}
-     * @property {Array} supported - The set of languages supported by the application.
-     * @property {string} lang - The preferred language supported by the application and the browser.
+     * Gets the Polymer property definitions for data binding.
+     * @protected
+     * @ignore
      */
     static get properties() {
       return {
+        /**
+         * The set of languages supported by the application.
+         * The supported languages collection should use BCP-47 notation.
+         * Matching logic is case-insensitive.
+         */
         supported: {
           type: Array
         },
+        /**
+         * The preferred language supported by the application and the browser.
+         * If the browser does not support any of the application supported languages, the first support language will be selected as the default.
+         */
         lang: {
           type: String,
           readOnly: true,
@@ -42,7 +66,7 @@
     }
 
     /**
-     * Lifecycle callback invoked when a new element instance is created.
+     * Creates a new instance of the custom element.
      */
     constructor() {
       super()
@@ -50,7 +74,8 @@
     }
 
     /**
-     * Lifecycle callback invoked when element has been initialized.
+     * The Polymer lifecycle callback invoked when element has been initialized.
+     * @protected
      */
     ready() {
       super.ready();
@@ -58,8 +83,8 @@
     }
 
     /**
-     * Computed property handler to match the set of application supported languages with languages supported by the browser, and select the preferred application language.
-     * @param {Array} supported - The set of languages supported by the application.
+     * A computed property to selects the preferred application language.
+     * @param {string[]} supported - The set of languages supported by the application.
      * @private
      */
     [computeLang](supported) {
