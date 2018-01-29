@@ -72,7 +72,14 @@ Localization strings can include variables, and support pluralization. <b><i>For
           type: Object,
           readOnly: true,
           notify: true
-        }
+        },
+        /**
+         * Whether to send any existing cookies (e.g. Session-ID) with the fetch.
+         */
+        sendCookies: {
+            type: Boolean,
+            value: false
+        }        
       }
     }
 
@@ -107,7 +114,12 @@ Localization strings can include variables, and support pluralization. <b><i>For
       if (!/.json$/ig.test(file)) file = file + '.json'
       const url = this.resolveUrl(path + file)
 
-      fetch(url).then((response) => {
+      var params = {};
+      if (this.sendCookies) {
+           params = { credentials: 'same-origin' };
+      }
+
+      fetch(url, params).then((response) => {
         return response.json()
       }).then((resources) => {
         this._setResources(resources)
